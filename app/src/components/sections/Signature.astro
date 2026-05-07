@@ -1,20 +1,17 @@
 ---
-import SignatureWall from '~/components/signature/SignatureWall.astro';
 import { SEEDS } from '~/content/seeds';
 const initialCount = SEEDS.length;
 ---
 <section id="sign" class="signature">
-  <div class="sig-head">
+  <div class="sig-mark" aria-hidden="true">№</div>
+
+  <div class="sig-lede">
     <h3>Sign the manifesto.</h3>
-    <p>If this reflects how you already work — or how you want to — claim it. One click via LinkedIn. You join the ones who build with intention.</p>
+    <p>
+      If this reflects how you already work — or how you want to — claim it.
+      One click via LinkedIn. <span class="sig-count-line">Already signed by <strong data-signature-count>{initialCount}</strong>.</span>
+    </p>
   </div>
-
-  <div class="sig-count" aria-live="polite">
-    <span class="num" data-signature-count>{initialCount}</span>
-    <span class="label">signed</span>
-  </div>
-
-  <SignatureWall />
 
   <div class="sig-foot">
     <button class="print-btn" id="printBtn" type="button">⎙ Print as broadside</button>

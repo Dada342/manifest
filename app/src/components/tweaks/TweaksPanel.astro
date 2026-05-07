@@ -1,19 +1,31 @@
 ---
+const SWATCHES = [
+  { hue: 28,  label: 'Rust' },
+  { hue: 145, label: 'Moss' },
+  { hue: 250, label: 'Indigo' },
+  { hue: 310, label: 'Plum' },
+  { hue: 60,  label: 'Ochre' },
+];
 ---
-<div id="tweaks">
+<div id="tweaks" role="region" aria-label="Theme tweaks">
   <h4>Tweaks</h4>
   <div class="row">
-    <label>Accent</label>
-    <div class="swatches" id="swatches">
-      <button class="swatch" data-hue="28" style="background: oklch(0.52 0.17 28)"></button>
-      <button class="swatch" data-hue="145" style="background: oklch(0.52 0.14 145)"></button>
-      <button class="swatch" data-hue="250" style="background: oklch(0.52 0.17 250)"></button>
-      <button class="swatch" data-hue="310" style="background: oklch(0.52 0.17 310)"></button>
-      <button class="swatch" data-hue="60" style="background: oklch(0.52 0.14 60)"></button>
+    <label id="tweak-accent-label">Accent</label>
+    <div class="swatches" id="swatches" role="radiogroup" aria-labelledby="tweak-accent-label">
+      {SWATCHES.map(s => (
+        <button
+          class="swatch"
+          type="button"
+          role="radio"
+          aria-label={`Accent ${s.label}`}
+          data-hue={s.hue}
+          style={`background: oklch(0.52 0.17 ${s.hue})`}
+        />
+      ))}
     </div>
   </div>
   <div class="row">
-    <label>Paper</label>
+    <label for="paperSel">Paper</label>
     <select id="paperSel">
       <option value="warm">Warm</option>
       <option value="cool">Cool</option>
@@ -21,11 +33,11 @@
     </select>
   </div>
   <div class="row">
-    <label>Serif size</label>
-    <input type="range" id="serifScale" min="0.9" max="1.15" step="0.01" />
+    <label for="serifScale">Serif size</label>
+    <input type="range" id="serifScale" min="0.9" max="1.15" step="0.01" aria-label="Serif size scale" />
   </div>
   <div class="row">
-    <label>Rainbow principles</label>
+    <label for="rainbowToggle">Rainbow principles</label>
     <input type="checkbox" id="rainbowToggle" />
   </div>
 </div>

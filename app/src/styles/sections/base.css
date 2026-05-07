@@ -13,6 +13,36 @@ body{
 }
 .serif{ font-family: var(--serif); font-feature-settings: "ss01","ss02","dlig","liga"; }
 
+/* Skip link — visible only on focus */
+.skip-link{
+  position: absolute;
+  left: 12px;
+  top: -100px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: top .2s cubic-bezier(.2,.7,.2,1);
+}
+.skip-link:focus{ top: 12px; }
+
+/* Reduced motion — disable all decorative animation */
+@media (prefers-reduced-motion: reduce){
+  *, ::before, ::after{
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html{ scroll-behavior: auto; }
+}
+
 /* Paper grain */
 body::before{
   content:""; position: fixed; inset:0; pointer-events:none; z-index: 1;

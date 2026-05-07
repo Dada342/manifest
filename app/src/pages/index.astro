@@ -12,15 +12,18 @@ import TweaksPanel from '~/components/tweaks/TweaksPanel.astro';
 import ClientApp from '~/components/ClientApp.astro';
 ---
 <Page>
+  <a href="#main" class="skip-link">Skip to content</a>
   <span id="top"></span>
   <FloatingChrome />
-  <Cover />
-  <div class="wrap">
-    <Preamble />
-    <Values />
-    <Principles />
-    <Signature />
-  </div>
+  <main id="main">
+    <Cover />
+    <div class="wrap">
+      <Preamble />
+      <Values />
+      <Principles />
+      <Signature />
+    </div>
+  </main>
   <TweaksPanel />
   <SignDialog />
   <DownvoteDialog />

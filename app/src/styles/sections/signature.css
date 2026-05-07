@@ -1,88 +1,65 @@
 /* ============ SIGNATURE ============ */
+/* Editorial composition — not a hero-metric. The count lives inline in the lede sentence. */
 .signature{
-  padding: clamp(60px, 10vh, 120px) 0 clamp(80px, 12vh, 140px);
+  padding: clamp(64px, 12vh, 140px) 0 clamp(80px, 14vh, 160px);
   border-top: 2px solid var(--ink);
   display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(28px, 4vh, 56px);
+  grid-template-columns: 80px 1fr;
+  gap: clamp(16px, 3vw, 36px);
+  align-items: start;
+  position: relative;
 }
-.signature .sig-head{
-  display: grid; gap: 16px;
-  max-width: 56ch;
+.sig-mark{
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 144, "wght" 320;
+  font-style: italic;
+  font-size: clamp(56px, 7vw, 96px);
+  line-height: .85;
+  color: var(--accent);
+  letter-spacing: -0.02em;
 }
-.signature .sig-head h3{
+.sig-lede{
+  display: grid; gap: 18px;
+  max-width: 60ch;
+}
+.sig-lede h3{
   font-family: var(--serif);
   font-variation-settings: "opsz" 144, "wght" 340;
   font-style: italic;
   font-weight: 340;
-  font-size: clamp(34px, 4.4vw, 64px);
-  line-height: 1.05;
+  font-size: clamp(34px, 4.6vw, 68px);
+  line-height: 1.02;
   color: var(--ink);
-  max-width: 18ch;
+  max-width: 16ch;
   text-wrap: balance;
 }
-.signature .sig-head p{
+.sig-lede p{
   font-family: var(--sans);
-  font-size: 15px; line-height: 1.6; color: var(--ink-2);
-  max-width: 48ch;
-}
-
-/* Hero count: tabular numeral + label, framed by hairlines */
-.sig-count{
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: end;
-  gap: clamp(20px, 3vw, 40px);
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  padding: clamp(18px, 3vw, 28px) 0;
-  position: relative;
-}
-.sig-count::before{
-  content: "№";
-  position: absolute;
-  left: 0; top: 12px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-.sig-count .num{
-  font-family: var(--serif);
-  font-variation-settings: "opsz" 144, "wght" 340;
-  font-style: italic;
-  font-size: clamp(96px, 16vw, 220px);
-  line-height: .85;
-  color: var(--accent);
-  letter-spacing: -0.04em;
-  font-variant-numeric: tabular-nums;
-  display: inline-block;
-  padding-left: 28px;
-}
-.sig-count .label{
-  display: inline-flex; flex-direction: column;
-  gap: 6px;
-  padding-bottom: clamp(14px, 2.5vw, 32px);
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-.sig-count .label::after{
-  content: "Free to fork. Free to leave.";
-  font-family: var(--serif);
-  font-style: italic;
-  font-variation-settings: "opsz" 144, "wght" 340;
-  font-size: 14px;
-  letter-spacing: -0.005em;
-  text-transform: none;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.55;
   color: var(--ink-2);
+  max-width: 50ch;
+}
+.sig-count-line{
+  display: inline;
+  white-space: nowrap;
+}
+.sig-count-line strong{
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 144, "wght" 380;
+  font-style: italic;
+  font-weight: 380;
+  font-size: 1.15em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.005em;
+  padding: 0 0.06em;
 }
 
 .sig-foot{
+  grid-column: 2;
   display: flex; align-items: center; gap: 16px;
+  margin-top: 12px;
 }
 
 .print-btn{
@@ -96,3 +73,12 @@
   transition: all .2s;
 }
 .print-btn:hover{ color: var(--accent); border-color: var(--accent); }
+
+@media (max-width: 700px){
+  .signature{
+    grid-template-columns: 1fr;
+    padding: clamp(48px, 8vh, 88px) 0 clamp(64px, 10vh, 96px);
+  }
+  .sig-mark{ font-size: 56px; }
+  .sig-foot{ grid-column: 1; }
+}
