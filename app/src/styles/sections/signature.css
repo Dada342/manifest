@@ -4,10 +4,10 @@
   border-top: 2px solid var(--ink);
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(36px, 6vh, 80px);
+  gap: clamp(28px, 4vh, 56px);
 }
 .signature .sig-head{
-  display: grid; gap: 18px;
+  display: grid; gap: 16px;
   max-width: 56ch;
 }
 .signature .sig-head h3{
@@ -27,11 +27,26 @@
   max-width: 48ch;
 }
 
+/* Hero count: tabular numeral + label, framed by hairlines */
 .sig-count{
-  display: flex; align-items: baseline; gap: 18px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: end;
+  gap: clamp(20px, 3vw, 40px);
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
-  padding: clamp(20px, 3vw, 32px) 0;
+  padding: clamp(18px, 3vw, 28px) 0;
+  position: relative;
+}
+.sig-count::before{
+  content: "№";
+  position: absolute;
+  left: 0; top: 12px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-3);
 }
 .sig-count .num{
   font-family: var(--serif);
@@ -43,14 +58,27 @@
   letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
   display: inline-block;
-  transition: color .3s;
+  padding-left: 28px;
 }
 .sig-count .label{
+  display: inline-flex; flex-direction: column;
+  gap: 6px;
+  padding-bottom: clamp(14px, 2.5vw, 32px);
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--ink-3);
+}
+.sig-count .label::after{
+  content: "Free to fork. Free to leave.";
+  font-family: var(--serif);
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "wght" 340;
+  font-size: 14px;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  color: var(--ink-2);
 }
 
 .sig-foot{
