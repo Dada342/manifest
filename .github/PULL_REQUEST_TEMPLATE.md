@@ -1,20 +1,16 @@
 <!--
-Thanks for opening a pull request to The Manifesto for AI-Driven Development.
+Thanks for contributing.
 
-If this PR adds your signature (a new file under
-app/src/content/signatories/), the checklist below is what we look at.
-For any other change, delete the checklist and describe the change.
+For signatures, keep the PR to one YAML file under:
+app/src/content/signatories/
 -->
 
-## Signing the manifesto
+## What changed?
 
-- [ ] My YAML file lives at `app/src/content/signatories/{my-github-handle}.yml`
-- [ ] The `github` field matches my handle and the filename
-- [ ] `name` and `signed_on` (YYYY-MM-DD) are filled
-- [ ] Optional `linkedin` is a full URL, `statement` is ≤ 280 chars
-- [ ] By signing, I state that the manifesto reflects how I already work,
-      or how I mean to. I am not signing for my employer.
+<!-- One or two sentences are enough. -->
 
-## Other change
+## Checklist
 
-<!-- If this is not a signature, describe the change here. -->
+- [ ] If this is a signature, the filename and `github` field match
+- [ ] If this changes the manifesto text, there is an issue or prior discussion
+- [ ] I ran the relevant checks, or this change does not need them

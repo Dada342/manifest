@@ -1,47 +1,62 @@
 # The Manifesto for AI-Driven Development
 
-Four values. Twelve principles.
-For developers who write code with AI.
+Four values. Twelve principles. A public record of people building software
+with AI while keeping judgment, craft, and responsibility in the loop.
 
-→ **Read it:** https://ai-driven-development.org
+Read it: https://ai-driven-development.org
 
-This repository holds the canonical text and its signatories.
-The site above is the editorial reading.
+## What This Is
 
-## What it is
+This repository is the source of truth for the manifesto and its signatories.
 
-A short manifesto in the spirit of the Manifesto for Agile Software
-Development. Written for the developers who actually ship code with AI —
-not for the people who manage them.
+It contains:
 
-## What it is not
+- the canonical manifesto content
+- one public YAML file per signatory
+- the small Astro site that publishes the manifesto
 
-Not a methodology. Not a framework. Not a product.
-A compass for the moment when the model speeds you up and the codebase
-still has to mean something.
+This is not a framework, a certification, or a product. It is a shared text
+for practitioners.
 
-## Sign the manifesto
+## Sign
 
-Signing is a public act recorded in this repository. One YAML file, one
-pull request, no backend.
+Signing is public and Git-based: one YAML file, one pull request, no backend.
 
-→ **[Open the GitHub prefill editor](https://github.com/ai-driven-dev/manifest/new/main/app/src/content/signatories?filename=YOUR-HANDLE.yml&value=github%3A%20your-handle%0Aname%3A%20Your%20Full%20Name%0Alinkedin%3A%20%23%20optional%20-%20https%3A%2F%2Fwww.linkedin.com%2Fin%2F...%0Aaffiliation%3A%20%23%20optional%20-%20title%20or%20company%0Asigned_on%3A%202026-05-08%0Astatement%3A%20%23%20optional%20-%20one-line%20public%20statement%20%28max%20280%20chars%29%0A)** &nbsp;&nbsp;·&nbsp;&nbsp; takes you to GitHub's web editor with the file pre-filled. Edit five lines, click *Propose new file*, and a pull request is opened automatically.
+[Open the prefilled GitHub editor](https://github.com/ai-driven-dev/manifest/new/main/app/src/content/signatories?filename=YOUR-HANDLE.yml&value=github%3A%20your-handle%0Aname%3A%20Your%20Full%20Name%0Alinkedin%3A%20%23%20optional%20-%20https%3A%2F%2Fwww.linkedin.com%2Fin%2F...%0Aaffiliation%3A%20%23%20optional%20-%20title%20or%20company%0Asigned_on%3A%202026-05-08%0Astatement%3A%20%23%20optional%20-%20one-line%20public%20statement%20%28max%20280%20chars%29%0A)
 
-Step-by-step guide: [SIGNATORIES.md](./SIGNATORIES.md).
-File format: [`app/src/content/signatories/_SCHEMA.md`](./app/src/content/signatories/_SCHEMA.md).
+Guide: [SIGNATORIES.md](./SIGNATORIES.md)  
+Schema: [app/src/content/signatories/_SCHEMA.md](./app/src/content/signatories/_SCHEMA.md)
 
-By signing, you state that the manifesto reflects how you already work,
-or how you mean to. You are not signing for your employer.
+By signing, you say the manifesto reflects how you already work, or how you
+mean to. You are not signing for your employer.
 
-## Origin
+## Contribute
 
-Drafted in 2026 by the AI-Driven Dev community.
-Maintained in the open. Each pull request is reviewed before merge; the
-build validates every signatory file against a schema.
+Pull requests are welcome for signatures, small fixes, documentation, site
+improvements, accessibility, and tests.
+
+Changes to the manifesto itself should start with an issue. The Core Team
+preserves the canonical text.
+
+Read [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+## Run Locally
+
+```bash
+cd app
+npm ci
+npm run dev
+```
+
+Checks:
+
+```bash
+cd app
+npm run build
+```
 
 ## License
 
-The manifesto text is released under
-[Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/).
-You may quote it, translate it, and remix it — keep attribution and link
-back to https://ai-driven-development.org.
+Content is licensed under CC BY 4.0. Code is licensed under MIT.
+
+See [LICENSE.md](./LICENSE.md).
