@@ -1,0 +1,147 @@
+import { PRINCIPLES } from '~/content/principles';
+import { VALUES } from '~/content/values';
+import { absoluteUrl, SITE, stripHtml } from '~/lib/site';
+
+export function getManifestoMarkdown(): string {
+  const values = VALUES.map(
+    (value) =>
+      `## Value ${value.n}: ${value.left} over ${value.right}\n\n${value.body}`
+  ).join('\n\n');
+
+  const principles = PRINCIPLES.map(
+    (principle) =>
+      `## Principle ${principle.n}\n\n${stripHtml(principle.lead)}\n\n${principle.sub}`
+  ).join('\n\n');
+
+  return `# ${SITE.name}
+
+${SITE.description}
+
+## Preamble
+
+As AI-Driven Developers, we are discovering better ways of building software by working with AI as a deliberate partner, and helping others do the same.
+
+# Values
+
+${values}
+
+# Principles
+
+${principles}
+
+## Sign
+
+Signing is a public act recorded in the source repository. One YAML file, one pull request, no backend.
+
+Repository: ${SITE.repoUrl}
+Canonical URL: ${SITE.origin}/
+`;
+}
+
+export function getManifestoJson() {
+  return {
+    name: SITE.name,
+    description: SITE.description,
+    url: absoluteUrl('/'),
+    inLanguage: SITE.lang,
+    datePublished: SITE.publishedDate,
+    dateModified: SITE.modifiedDate,
+    repository: SITE.repoUrl,
+    values: VALUES.map((value) => ({
+      id: value.id,
+      number: value.n,
+      preferred: value.left,
+      weighedAgainst: value.right,
+      quadrant: value.quad,
+      summary: value.body,
+    })),
+    principles: PRINCIPLES.map((principle) => ({
+      id: `P-${principle.n}`,
+      number: principle.n,
+      statement: stripHtml(principle.lead),
+      summary: principle.sub,
+    })),
+  };
+}
+
+export function getHomeJsonLd() {
+  const manifesto = getManifestoJson();
+
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': `${absoluteUrl('/')}#website`,
+      name: SITE.name,
+      url: absoluteUrl('/'),
+      inLanguage: SITE.lang,
+      description: SITE.description,
+      potentialAction: {
+        '@type': 'ReadAction',
+        target: absoluteUrl('/'),
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      '@id': `${absoluteUrl('/')}#webpage`,
+      url: absoluteUrl('/'),
+      name: SITE.name,
+      description: SITE.description,
+      inLanguage: SITE.lang,
+      datePublished: SITE.publishedDate,
+      dateModified: SITE.modifiedDate,
+      isPartOf: { '@id': `${absoluteUrl('/')}#website` },
+      mainEntity: { '@id': `${absoluteUrl('/')}#manifesto` },
+      breadcrumb: { '@id': `${absoluteUrl('/')}#breadcrumb` },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
+      '@id': `${absoluteUrl('/')}#manifesto`,
+      name: manifesto.name,
+      description: manifesto.description,
+      url: manifesto.url,
+      inLanguage: manifesto.inLanguage,
+      datePublished: manifesto.datePublished,
+      dateModified: manifesto.dateModified,
+      license: 'https://creativecommons.org/licenses/by/4.0/',
+      sameAs: SITE.repoUrl,
+      about: [
+        'AI-assisted software development',
+        'software engineering',
+        'developer practice',
+      ],
+      hasPart: [
+        ...manifesto.values.map((value) => ({
+          '@type': 'DefinedTerm',
+          '@id': `${absoluteUrl('/')}#${value.id}`,
+          name: `${value.preferred} over ${value.weighedAgainst}`,
+          description: value.summary,
+          position: value.number,
+        })),
+        ...manifesto.principles.map((principle) => ({
+          '@type': 'CreativeWork',
+          '@id': `${absoluteUrl('/')}#${principle.id}`,
+          name: `Principle ${principle.number}`,
+          text: principle.statement,
+          description: principle.summary,
+          position: principle.number,
+        })),
+      ],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      '@id': `${absoluteUrl('/')}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: SITE.shortName,
+          item: absoluteUrl('/'),
+        },
+      ],
+    },
+  ];
+}
