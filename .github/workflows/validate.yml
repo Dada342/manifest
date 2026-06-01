@@ -20,3 +20,7 @@ jobs:
           cache-dependency-path: app/package-lock.json
       - run: npm ci
       - run: npm run build
+      - run: npm test
+      - run: bash tests/check-component-loc.sh
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:checklist

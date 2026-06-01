@@ -25,6 +25,8 @@ env:
   DEPLOY_DIR: /opt/infrastructure/services/aidd-manifest
   CONTAINER_NAME: aidd-manifest
   CONTAINER_PORT: "4321"
+  PUBLIC_ORIGIN: https://www.ai-driven-development.org
+  INDEXNOW_KEY: a1f401c8d1e64cb99fbe0d7f4a462026
 
 jobs:
   # ──────────────────────────────────────────────
@@ -132,6 +134,41 @@ jobs:
             docker logs --tail 30 "$CONTAINER_NAME"
             exit 1
           fi
+
+          echo "=== Public checklist smoke ==="
+          for i in $(seq 1 12); do
+            HTTP_CODE=$(curl -sS -o /dev/null -w '%{http_code}' "${PUBLIC_ORIGIN}/healthz" 2>/dev/null || echo "000")
+            if [ "$HTTP_CODE" = "200" ]; then
+              break
+            fi
+            if [ "$i" -eq 12 ]; then
+              echo "ERROR: Public health check failed (HTTP $HTTP_CODE)"
+              exit 1
+            fi
+            sleep 5
+          done
+
+          for path in \
+            "/" \
+            "/robots.txt" \
+            "/sitemap.xml" \
+            "/feed.xml" \
+            "/site.webmanifest" \
+            "/.well-known/security.txt" \
+            "/.well-known/agent-card.json" \
+            "/${INDEXNOW_KEY}.txt"; do
+            HTTP_CODE=$(curl -sS -o /dev/null -w '%{http_code}' "${PUBLIC_ORIGIN}${path}" 2>/dev/null || echo "000")
+            if [ "$HTTP_CODE" != "200" ]; then
+              echo "ERROR: Public checklist smoke failed for ${path} (HTTP $HTTP_CODE)"
+              exit 1
+            fi
+          done
+
+          echo "=== IndexNow submission ==="
+          curl -fsS --get "https://api.indexnow.org/indexnow" \
+            --data-urlencode "url=${PUBLIC_ORIGIN}/" \
+            --data-urlencode "key=${INDEXNOW_KEY}" \
+            -o /dev/null
 
           echo "=== Deploy successful ==="
           echo "Image:  $(docker inspect --format='{{.Config.Image}}' "$CONTAINER_NAME")"
