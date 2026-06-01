@@ -1,0 +1,24 @@
+---
+import Page from '~/components/layout/Page.astro';
+
+Astro.response.status = 503;
+Astro.response.headers.set('Retry-After', '3600');
+const description = 'Temporary maintenance page for planned downtime.';
+---
+<Page title="Maintenance" description={description} path="/maintenance" noindex>
+  <main class="plain-page" id="main">
+    <div class="plain-page-inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Maintenance</span>
+      </nav>
+      <h1>Maintenance</h1>
+      <p>
+        The site is intentionally offline for maintenance. Retry after one hour, or read
+        the canonical source in the public repository.
+      </p>
+      <a class="action-link" href="https://github.com/ai-driven-dev/manifest" rel="noopener">Open source</a>
+    </div>
+  </main>
+</Page>

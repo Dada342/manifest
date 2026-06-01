@@ -1,0 +1,23 @@
+---
+import Page from '~/components/layout/Page.astro';
+
+Astro.response.status = 500;
+const description = 'The site hit an internal error.';
+---
+<Page title="Server error" description={description} path="/500" noindex>
+  <main class="plain-page" id="main">
+    <div class="plain-page-inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Server error</span>
+      </nav>
+      <h1>Server error</h1>
+      <p>
+        Something failed while rendering the site. No implementation details are exposed
+        here; retry from the homepage or check the repository status.
+      </p>
+      <a class="action-link" href="/">Return home</a>
+    </div>
+  </main>
+</Page>

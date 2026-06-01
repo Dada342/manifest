@@ -1,0 +1,68 @@
+---
+import Page from '~/components/layout/Page.astro';
+import { SITE, absoluteUrl } from '~/lib/site';
+
+const description =
+  'Privacy policy for the AI-Driven Development manifesto site, including signatory data and third-party requests.';
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Privacy',
+    url: absoluteUrl('/privacy'),
+    description,
+    inLanguage: SITE.lang,
+    isPartOf: { '@id': `${absoluteUrl('/')}#website` },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: SITE.shortName, item: absoluteUrl('/') },
+        { '@type': 'ListItem', position: 2, name: 'Privacy', item: absoluteUrl('/privacy') },
+      ],
+    },
+  },
+];
+---
+<Page title="Privacy" description={description} path="/privacy" jsonLd={jsonLd}>
+  <main class="plain-page" id="main">
+    <div class="plain-page-inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Privacy</span>
+      </nav>
+
+      <h1>Privacy</h1>
+      <p>
+        This site is a static publication for the AI-Driven Development manifesto. It does
+        not run advertising, analytics, tracking pixels, or non-essential cookies.
+      </p>
+
+      <h2>Signatories</h2>
+      <p>
+        Public signatories are stored as YAML files in the GitHub repository. If you sign,
+        the name, GitHub handle, optional LinkedIn URL, optional affiliation, signature date,
+        and optional statement you submit become public through the repository and this site.
+      </p>
+
+      <h2>Third-party requests</h2>
+      <p>
+        The signatory wall loads GitHub avatar images from GitHub-controlled domains. The
+        sign and repository links navigate to GitHub when activated. No third-party script
+        runs on this site.
+      </p>
+
+      <h2>Browser signals</h2>
+      <p>
+        Global Privacy Control is treated as an opt-out from sale or sharing. This site does
+        not sell or share personal data, so no extra opt-out step is required.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Privacy and correction requests can be opened as repository issues or pull requests.
+        Security reports should use the published <code>/.well-known/security.txt</code>.
+      </p>
+    </div>
+  </main>
+</Page>

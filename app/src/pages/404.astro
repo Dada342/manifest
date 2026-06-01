@@ -1,0 +1,23 @@
+---
+import Page from '~/components/layout/Page.astro';
+
+Astro.response.status = 404;
+const description = 'The requested page was not found.';
+---
+<Page title="Not found" description={description} path={Astro.url.pathname} noindex>
+  <main class="plain-page" id="main">
+    <div class="plain-page-inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Not found</span>
+      </nav>
+      <h1>Not found</h1>
+      <p>
+        The page does not exist at this URL. The manifesto, Markdown source, sitemap, and
+        machine-readable endpoints are linked from the homepage.
+      </p>
+      <a class="action-link" href="/">Return home</a>
+    </div>
+  </main>
+</Page>
