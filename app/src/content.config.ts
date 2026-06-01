@@ -1,7 +1,8 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const signatories = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '**/*.yml', base: './src/content/signatories' }),
   schema: z.object({
     github: z.string().regex(/^[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,38})$/, {
       message: 'github must be a valid GitHub handle (alphanumeric + hyphen, max 39 chars)',
