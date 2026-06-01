@@ -10,14 +10,24 @@
   text-transform: uppercase;
   color: var(--ink-3);
 }
+.footer-nav{
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px 22px;
+}
 .footer-link{
   display: inline-flex; align-items: center; gap: 10px;
+  min-height: 44px;
   color: var(--ink-3);
   text-decoration: none;
   transition: color .2s;
 }
 .footer-link svg{ width: 14px; height: 14px; }
 .footer-link:hover{ color: var(--ink); }
+.footer-link-text{
+  letter-spacing: 0.18em;
+}
 .footer-text{
   letter-spacing: 0.16em;
   text-transform: lowercase;
@@ -32,5 +42,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+  .footer-nav{
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
   }
 }

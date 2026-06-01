@@ -10,13 +10,13 @@ const SWATCHES = [
 <div id="tweaks" role="region" aria-label="Theme tweaks">
   <h4>Tweaks</h4>
   <div class="row">
-    <label id="tweak-accent-label">Accent</label>
-    <div class="swatches" id="swatches" role="radiogroup" aria-labelledby="tweak-accent-label">
+    <span id="tweak-accent-label">Accent</span>
+    <div class="swatches" id="swatches" aria-labelledby="tweak-accent-label">
       {SWATCHES.map(s => (
         <button
           class="swatch"
           type="button"
-          role="radio"
+          aria-pressed={s.hue === 28 ? 'true' : 'false'}
           aria-label={`Accent ${s.label}`}
           data-hue={s.hue}
           style={`background: oklch(0.52 0.17 ${s.hue})`}

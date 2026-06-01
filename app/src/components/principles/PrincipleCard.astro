@@ -10,7 +10,7 @@ interface Props {
 }
 const { principle: p, index: i, term } = Astro.props;
 ---
-<article class="principle reveal" data-idx={i} style={`--p-hue: ${p.hue}`}>
+<article id={`P-${p.n}`} class="principle reveal" data-idx={i} style={`--p-hue: ${p.hue}`}>
   <span class="p-folio" aria-hidden="true">{p.r}</span>
   <div class="p-num">{p.n}</div>
   <div class="p-body">

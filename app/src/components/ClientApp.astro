@@ -58,7 +58,9 @@
     }
     document.documentElement.style.fontSize = (16 * state.serifScale) + 'px';
     document.querySelectorAll<HTMLElement>('#swatches .swatch').forEach((b) => {
-      b.classList.toggle('on', Number(b.dataset.hue) === state.accentHue);
+      const selected = Number(b.dataset.hue) === state.accentHue;
+      b.classList.toggle('on', selected);
+      b.setAttribute('aria-pressed', String(selected));
     });
     const ps = document.getElementById('paperSel') as HTMLSelectElement | null; if (ps) ps.value = state.paper;
     const ss = document.getElementById('serifScale') as HTMLInputElement | null; if (ss) ss.value = String(state.serifScale);
@@ -78,6 +80,24 @@
     if (d.type === '__deactivate_edit_mode') document.getElementById('tweaks')?.classList.remove('on');
   });
   try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch {}
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }, { once: true });
+  }
+
+  const modelContext = (navigator as any).modelContext;
+  if (modelContext?.registerTool) {
+    modelContext.registerTool(
+      {
+        name: 'get_manifesto',
+        description: 'Return the AI-Driven Development manifesto as structured JSON.',
+        inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+      },
+      async () => fetch('/manifesto.json').then((r) => r.json())
+    );
+  }
 
   document.getElementById('swatches')?.addEventListener('click', (e) => {
     const b = (e.target as HTMLElement).closest<HTMLElement>('.swatch'); if (!b) return;

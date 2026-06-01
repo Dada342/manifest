@@ -33,6 +33,6 @@ statement: >
 ## Validation
 
 YAML files are validated at build time by Astro Content Collections (Zod
-schema in `app/src/content/config.ts`). A malformed file will fail the
+schema in `app/src/content.config.ts`). A malformed file will fail the
 build, so the `Validate` GitHub Action on each pull request catches errors
 before merge.

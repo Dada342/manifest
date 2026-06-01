@@ -31,7 +31,7 @@ import Quadrant from '~/components/values/Quadrant.astro';
 
   <div class="plate">
     {VALUES.map((v) => (
-      <div class="plate-row reveal">
+      <div id={v.id} class="plate-row reveal">
         <div class="pr-folio">{v.n}</div>
         <div class="pr-text">
           <div class="pr-kicker">Value 0{v.n} <span class="pr-kicker-sep">·</span> 04</div>
@@ -54,4 +54,3 @@ import Quadrant from '~/components/values/Quadrant.astro';
     <p>That is, while there is value in the items on the right, we value the items on the left more.</p>
   </div>
 </section>
-

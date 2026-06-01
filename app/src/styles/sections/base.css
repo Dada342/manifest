@@ -1,5 +1,8 @@
 *{box-sizing:border-box; margin:0; padding:0}
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+  scrollbar-gutter: stable;
+}
 body{
   background: var(--paper);
   color: var(--ink);
@@ -12,6 +15,87 @@ body{
   overflow-x: hidden;
 }
 .serif{ font-family: var(--serif); font-feature-settings: "ss01","ss02","dlig","liga"; }
+a{ color: inherit; }
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+summary:focus-visible{
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+.plain-page{
+  min-height: 100dvh;
+  padding: clamp(32px, 7vw, 88px) clamp(24px, 6vw, 88px);
+  background: var(--paper);
+  color: var(--ink);
+  position: relative;
+  z-index: 2;
+}
+.plain-page-inner{
+  max-width: 820px;
+  margin: 0 auto;
+}
+.breadcrumb{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: clamp(28px, 5vh, 56px);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.breadcrumb a{ text-decoration: none; }
+.breadcrumb a:hover{ color: var(--ink); }
+.plain-page h1{
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 144, "wght" 340;
+  font-size: clamp(42px, 7vw, 82px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(22px, 4vh, 36px);
+}
+.plain-page h2{
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 72, "wght" 370;
+  font-size: clamp(24px, 3vw, 34px);
+  margin: clamp(28px, 5vh, 44px) 0 10px;
+}
+.plain-page p,
+.plain-page li{
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink-2);
+}
+.plain-page p + p{ margin-top: 14px; }
+.plain-page ul{
+  margin: 14px 0 0 1.1em;
+}
+.plain-page code{
+  font-family: var(--mono);
+  font-size: .9em;
+  color: var(--ink);
+}
+.plain-page .action-link{
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 22px;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
 
 /* Skip link — visible only on focus */
 .skip-link{
@@ -41,6 +125,34 @@ body{
     scroll-behavior: auto !important;
   }
   html{ scroll-behavior: auto; }
+}
+
+@supports (content-visibility: auto){
+  .wrap > section{
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+  }
+}
+
+@supports (contain: content){
+  .principle,
+  .sig-card,
+  .quad-cell,
+  .value-art{
+    contain: content;
+  }
+}
+
+@supports (animation-timeline: view()){
+  .reveal{
+    animation: reveal-view both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 25%;
+  }
+  @keyframes reveal-view{
+    from{ opacity: 0; transform: translateY(24px); }
+    to{ opacity: 1; transform: none; }
+  }
 }
 
 /* Paper grain */
