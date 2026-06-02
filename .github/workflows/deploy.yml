@@ -27,6 +27,8 @@ env:
   CONTAINER_PORT: "4321"
   PUBLIC_ORIGIN: https://www.ai-driven-development.org
   INDEXNOW_KEY: a1f401c8d1e64cb99fbe0d7f4a462026
+  # Run JS-based actions on Node 24 (Node 20 is deprecated, forced 2026-06-16).
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
   # ──────────────────────────────────────────────
