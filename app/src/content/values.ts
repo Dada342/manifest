@@ -63,6 +63,6 @@ export const VALUES: ValueEntry[] = [
     right: 'Output',
     quad: 'Impact',
     note: 'Ship <em class="emph">impact<svg class="und" aria-hidden="true" viewBox="0 0 100 7" preserveAspectRatio="none"><path d="M2 4 Q 32 2, 56 5 T 98 4"/></svg></em>. Not <em class="emph">output<svg class="und" aria-hidden="true" viewBox="0 0 100 7" preserveAspectRatio="none"><path d="M2 5 Q 30 3, 54 6 T 98 3"/></svg></em>.',
-    body: 'Writing code is easy. Building product is not. Ship small, iterate fast, keep feedback loops short — avoid vanity metrics. The only number that serves is the business.',
+    body: 'Writing code is easy. Building product is not. Ship small, iterate fast, short feedback loops — avoid vanity metrics. The only number that serves is the business.',
   },
 ];

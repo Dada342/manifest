@@ -1,7 +1,6 @@
 ---
 import { VALUES } from '~/content/values';
 import ValueArt from '~/components/values/ValueArt.astro';
-import Quadrant from '~/components/values/Quadrant.astro';
 ---
 <section id="values" class="values">
   <div class="chapter-open reveal">
@@ -23,8 +22,6 @@ import Quadrant from '~/components/values/Quadrant.astro';
     </div>
   </div>
 
-  <Quadrant />
-
   <div class="values-epigraph reveal">
     <p>Four tensions. Each side still matters. <em>The weight falls left.</em></p>
   </div>
@@ -40,7 +37,7 @@ import Quadrant from '~/components/values/Quadrant.astro';
           <div class="right serif">{v.right}
             <svg class="strike" preserveAspectRatio="none" viewBox="0 0 400 12"><path d="M2 6 Q 100 3, 200 7 T 398 5"/></svg>
           </div>
-          <div class="note" set:html={v.note} />
+          <div class="note" set:html={v.body} />
         </div>
         <div class="pr-art">
           <ValueArt anim={v.anim} />
