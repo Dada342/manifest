@@ -49,14 +49,13 @@
     history.pushState(null, '', '#' + id);
   });
 
-  // Post-sign share dialog — the sign CTA opens GitHub in its own tab; in this
-  // one we surface the dialog so the signature can be announced on LinkedIn / X.
+  // Post-sign share dialog — surfaced after signing, for announcing on LinkedIn / X.
   const shareDialog = document.getElementById('share-dialog') as HTMLDialogElement | null;
   if (shareDialog) {
     document.addEventListener('click', (e) => {
       const el = e.target as HTMLElement;
-      if (el.closest('.sign-btn')) shareDialog.showModal();
-      else if (el.closest('[data-share-close]')) shareDialog.close();
+      // Removed: sign-btn now opens PreSignModal instead
+      if (el.closest('[data-share-close]')) shareDialog.close();
       else if (e.target === shareDialog) shareDialog.close(); // backdrop click
     });
   }
