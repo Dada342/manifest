@@ -65,9 +65,7 @@
   color: var(--accent-ink);
   text-decoration: none;
   border: 1px solid transparent;
-  box-shadow:
-    0 1px 0 0 oklch(1 0 0 / 0.12) inset,
-    0 8px 24px -8px oklch(0.54 0.246 275 / 0.45);
+  box-shadow: var(--shadow-cta);
   transition:
     transform var(--dur-short) var(--ease-out),
     box-shadow var(--dur-short) var(--ease-out),
@@ -77,15 +75,26 @@
 .sign-btn:hover{
   transform: translateY(-2px);
   filter: brightness(1.08);
-  box-shadow:
-    0 1px 0 0 oklch(1 0 0 / 0.15) inset,
-    0 14px 32px -8px oklch(0.54 0.246 275 / 0.58);
+  box-shadow: var(--shadow-cta-hover);
 }
 .sign-btn:active{ transform: translateY(-1px); }
 .sign-btn:focus-visible{
   outline: 2px solid var(--focus);
   outline-offset: 4px;
 }
+
+/* Sidebar variant — full-width, compact, no chevron (narrow column). */
+.sign-btn--sidebar{
+  display: flex;
+  width: 100%;
+  min-height: 46px;
+  gap: 10px;
+  padding: 8px 12px 8px 8px;
+}
+.sign-btn--sidebar .sign-btn-icon{ width: 28px; height: 28px; }
+.sign-btn--sidebar .sign-btn-label{ font-size: 14px; }
+.sign-btn--sidebar .sign-btn-sig{ width: 100%; height: 15px; margin-top: 3px; }
+.sign-btn--sidebar .sign-btn-chev{ display: none; }
 
 /* Icon chip — white on accent */
 .sign-btn-icon{
@@ -99,6 +108,44 @@
   flex: none;
 }
 .sign-btn-icon svg{ width: 17px; height: 17px; }
+
+/* Animated AIDD logo inside the chip — bars draw in on load (and re-draw on
+   hover / focus), the accent dot breathes gently. */
+.sign-btn-icon .sign-logo{ width: 21px; height: 21px; overflow: visible; }
+.sign-logo .sl-bar-small,
+.sign-logo .sl-bar-big{
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+  animation: logo-draw 0.9s var(--ease-out) 0.3s both;
+}
+.sign-logo .sl-bar-big{ animation-delay: 0.42s; }
+.sign-logo .sl-dot{
+  transform-box: fill-box;
+  transform-origin: center;
+  /* Breathes a few times on load, then settles (no perpetual motion). */
+  animation: logo-breathe 3s var(--ease-in-out) 1.4s 3 both;
+}
+/* Re-breathe on hover/focus so the mark still feels alive on interaction. */
+.sign-btn:hover .sign-logo .sl-dot,
+.sign-btn:focus-visible .sign-logo .sl-dot{
+  animation: logo-breathe 2.4s var(--ease-in-out) 1 both;
+}
+@keyframes logo-draw{ from{ stroke-dashoffset: 100; } to{ stroke-dashoffset: 0; } }
+@keyframes logo-breathe{
+  0%, 100%{ transform: scale(1); opacity: 0.88; }
+  50%{ transform: scale(1.16); opacity: 1; }
+}
+.sign-btn:hover .sign-logo .sl-bar-small,
+.sign-btn:hover .sign-logo .sl-bar-big,
+.sign-btn:focus-visible .sign-logo .sl-bar-small,
+.sign-btn:focus-visible .sign-logo .sl-bar-big{
+  animation: logo-draw 0.8s var(--ease-out) both;
+}
+@media (prefers-reduced-motion: reduce){
+  .sign-logo .sl-bar-small,
+  .sign-logo .sl-bar-big{ animation: none; stroke-dashoffset: 0; }
+  .sign-logo .sl-dot{ animation: none; }
+}
 
 /* Label area */
 .sign-btn-body{
@@ -121,14 +168,14 @@
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: oklch(from var(--accent-ink) l c h / 0.70);
+  color: var(--accent-ink);
 }
 
 /* Chevron */
 .sign-btn-chev{
   font-family: var(--sans);
   font-size: 18px;
-  color: oklch(from var(--accent-ink) l c h / 0.80);
+  color: var(--accent-ink);
   transition:
     transform var(--dur-short) var(--ease-out),
     color var(--dur-short) var(--ease-out);
@@ -205,7 +252,7 @@
   transform: translateY(-2px);
   background: var(--paper-3);
   border-color: var(--accent-soft);
-  box-shadow: 0 8px 24px -12px oklch(0.54 0.246 275 / 0.18);
+  box-shadow: var(--shadow-card);
 }
 
 .sig-top{
@@ -303,6 +350,87 @@
   background: var(--accent-soft);
 }
 .sig-linkedin svg{ width: 14px; height: 14px; }
+
+/* ---- Post-sign share dialog — LinkedIn / X announcement ---- */
+.share-dialog{
+  border: none;
+  padding: 0;
+  background: transparent;
+  max-width: min(460px, calc(100vw - 32px));
+  margin: auto;   /* recentre — the global margin reset kills the UA default */
+}
+.share-dialog::backdrop{
+  background: var(--scrim);
+  backdrop-filter: blur(2px);
+}
+.share-card{
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  padding: clamp(24px, 4vw, 32px);
+  box-shadow: var(--shadow-modal);
+}
+.share-close{
+  position: absolute;
+  top: 10px; right: 12px;
+  width: 32px; height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--dur-short) var(--ease-out), background var(--dur-short) var(--ease-out);
+}
+.share-close:hover{ color: var(--ink); background: var(--paper-3); }
+.share-close:focus-visible{ outline: 2px solid var(--focus); outline-offset: 2px; }
+.share-title{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(20px, 2vw, 26px);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.share-sub{
+  font-family: var(--sans);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin-bottom: 20px;
+}
+.share-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.share-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--accent-ink);
+  text-decoration: none;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 14px;
+  transition: transform var(--dur-short) var(--ease-out), filter var(--dur-short) var(--ease-out);
+}
+.share-btn:hover{ transform: translateY(-1px); filter: brightness(1.08); }
+.share-btn:focus-visible{ outline: 2px solid var(--focus); outline-offset: 3px; }
+.share-btn svg{ width: 15px; height: 15px; flex: none; }
+/* Secondary action — one filled (LinkedIn), one ghost (X). */
+.share-btn--ghost{
+  background: transparent;
+  color: var(--ink-2);
+  border: 1px solid var(--rule);
+}
+.share-btn--ghost:hover{ filter: none; color: var(--accent); border-color: var(--accent-soft); }
 
 /* ---- Print ---- */
 @media print{

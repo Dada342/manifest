@@ -1,0 +1,36 @@
+---
+// Post-sign share dialog — surfaced (by ClientApp) right after the sign CTA
+// opens GitHub in a new tab, so the signature can be announced on LinkedIn / X.
+// Native <dialog>: Esc + backdrop close come for free, no extra JS state.
+const SITE = 'https://ai-driven-development.org';
+const TEXT = 'I just signed the Manifesto for AI-Driven Development.';
+const MESSAGE = encodeURIComponent(`${TEXT} ${SITE}`);
+
+const X_HREF = `https://x.com/intent/post?text=${MESSAGE}`;
+// LinkedIn's share-offsite endpoint drops custom text; the feed composer keeps it.
+const LINKEDIN_HREF = `https://www.linkedin.com/feed/?shareActive=true&text=${MESSAGE}`;
+---
+<dialog id="share-dialog" class="share-dialog" aria-labelledby="share-title">
+  <div class="share-card">
+    <button type="button" class="share-close" data-share-close aria-label="Close">&times;</button>
+    <h3 id="share-title" class="share-title">Make it public</h3>
+    <p class="share-sub">
+      Your signature goes live once the pull request is merged. In the
+      meantime, tell people where you stand:
+    </p>
+    <div class="share-actions">
+      <a class="share-btn" href={LINKEDIN_HREF} target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.13 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zm7.66 0h4.37v1.92h.06c.61-1.16 2.1-2.38 4.32-2.38 4.62 0 5.47 3.04 5.47 7v8.46h-4.55v-7.5c0-1.79-.03-4.09-2.49-4.09-2.5 0-2.88 1.95-2.88 3.96V22H7.88V8z"/>
+        </svg>
+        <span>Share on LinkedIn</span>
+      </a>
+      <a class="share-btn share-btn--ghost" href={X_HREF} target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/>
+        </svg>
+        <span>Share on X</span>
+      </a>
+    </div>
+  </div>
+</dialog>
