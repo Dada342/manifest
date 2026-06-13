@@ -49,17 +49,6 @@
     history.pushState(null, '', '#' + id);
   });
 
-  // Post-sign share dialog — surfaced after signing, for announcing on LinkedIn / X.
-  const shareDialog = document.getElementById('share-dialog') as HTMLDialogElement | null;
-  if (shareDialog) {
-    document.addEventListener('click', (e) => {
-      const el = e.target as HTMLElement;
-      // Removed: sign-btn now opens PreSignModal instead
-      if (el.closest('[data-share-close]')) shareDialog.close();
-      else if (e.target === shareDialog) shareDialog.close(); // backdrop click
-    });
-  }
-
   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
     "accentHue": 275,
     "paper": "ice",

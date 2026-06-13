@@ -1,6 +1,19 @@
 ---
-// CTA button that triggers the pre-sign modal
-// The actual GitHub link is opened after 5s countdown in the modal
+// CTA that opens GitHub's web editor pre-filled with a YAML signatory file.
+// No JS, no backend — just an anchor to GitHub's `/new/...?filename=...&value=...`
+// endpoint, which lets contributors propose a new file directly from the browser.
+
+const REPO = 'ai-driven-dev/manifest';
+const TARGET_PATH = 'app/src/content/signatories';
+
+const TEMPLATE = `github: your-handle
+name: Your Full Name
+linkedin: # optional - https://www.linkedin.com/in/...
+affiliation: # optional - title or company
+statement: # optional - one-line public statement (max 280 chars)
+`;
+
+const HREF = `https://github.com/${REPO}/new/main/${TARGET_PATH}?filename=YOUR-HANDLE.yml&value=${encodeURIComponent(TEMPLATE)}`;
 
 interface Props {
   /** 'github' (default, bottom CTA) or 'aidd' (animated brand mark, sidebar). */
@@ -10,12 +23,7 @@ interface Props {
 }
 const { logo = 'github', variant = 'default' } = Astro.props;
 ---
-<button 
-  class:list={['sign-btn', variant === 'sidebar' && 'sign-btn--sidebar']} 
-  type="button"
-  onclick="(window as any).openPreSignModal?.()"
-  aria-haspopup="dialog"
->
+<a class:list={['sign-btn', variant === 'sidebar' && 'sign-btn--sidebar']} href={HREF} target="_blank" rel="noopener">
   <span class="sign-btn-icon" aria-hidden="true">
     {logo === 'aidd' ? (
       <svg class="sign-logo" viewBox="0 0 100 100" focusable="false">
